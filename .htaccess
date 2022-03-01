@@ -1,0 +1,25 @@
+DirectoryIndex home.php
+ErrorDocument 404 /errors/404.php
+ErrorDocument 403 /errors/403.php
+Options -Indexes
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-d 
+RewriteCond %{REQUEST_FILENAME}\.php -f 
+RewriteRule ^([^/]+)/?$ $1.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d 
+RewriteCond %{REQUEST_FILENAME}\.html -f 
+RewriteRule ^([^/]+)/?$ $1.html [L]
+
+RewriteCond %{REQUEST_FILENAME} -d [OR]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+RewriteRule ^([^/]+)/([^/]+)/?$ $1.php?story_id=$2 [L,QSA]
+RewriteRule ^([^/]+)/([^/]+)/?$ $1.php?username=$2 [L,QSA]
+
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
